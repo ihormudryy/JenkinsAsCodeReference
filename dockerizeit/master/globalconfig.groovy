@@ -26,7 +26,7 @@ if (properties.global.jenkinsRootUrl) {
 } else {
   def ip = InetAddress.localHost.getHostAddress()
   println "--> set jenkins root url to ${ip}"
-  jlc.setUrl("http://$ip:8080")
+  jlc.setUrl("http://$ip")
 }
 jlc.save()
 

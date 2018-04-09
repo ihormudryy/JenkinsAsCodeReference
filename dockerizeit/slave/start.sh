@@ -7,7 +7,7 @@ if [[ $# -lt 1 ]] || [[ "$1" == "-"* ]]; then
   JAR=`ls -1 /usr/share/jenkins/swarm-client-*.jar | tail -n 1`
   
   # Set master URL - jmaster name defined in docker-compose and available for reference in Docker network
-  PARAMS="-master http://jmaster:8080"
+  PARAMS="-master http://jmaster"
 
   # Set default number of executors (2 by default)
   PARAMS="$PARAMS -executors ${NUM_OF_EXECUTORS:-2}"
