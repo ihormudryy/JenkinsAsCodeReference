@@ -16,10 +16,10 @@ services:
         max-size:  "200m"
         max-file: "3"
     ports:
-      - "80:8080"
       - "443:443"
       - "50000:50000"
     volumes:
+      - $HOME/.cert:/var/jenkins_home/.cert
       - $HOME/.ssh:/var/jenkins_home/.ssh
       - $HOME/jenkins-backup/jobs:/var/jenkins_home/jobs
       - $HOME/jenkins-backup/userContent:/var/jenkins_home/userContent
