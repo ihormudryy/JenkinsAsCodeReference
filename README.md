@@ -1,7 +1,4 @@
 [![Build Status](https://api.travis-ci.org/Praqma/JenkinsAsCodeReference.svg?branch=master)](https://travis-ci.org/Praqma/JenkinsAsCodeReference)
----
-maintainer: ewelinawilkosz
----
 
 # Jenkins as Code template
 
