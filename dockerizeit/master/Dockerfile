@@ -11,7 +11,7 @@ ENV no_proxy ${no_proxy:-}
 ARG JAVA_PROXY
 ENV JAVA_PROXY ${JAVA_PROXY:-}
 ENV JAVA_OPTS "-Djenkins.install.runSetupWizard=false ${JAVA_PROXY:-}"
-ENV JENKINS_OPTS "--httpsCertificate=/var/jenkins_home/.cert/certificate.crt --httpsPrivateKey=/var/jenkins_home/.certs/cci-jenkins.key --webroot=/var/cache/$NAME/war -DsessionTimeout=1 --httpPort=-1 --httpsPort=443"
+ENV JENKINS_OPTS "--httpsCertificate=/var/jenkins_home/.certs/certificate.crt --httpsPrivateKey=/var/jenkins_home/.certs/cci-jenkins.key --webroot=/var/cache/$NAME/war -DsessionTimeout=1 --httpPort=-1 --httpsPort=443"
 
 # Define build argument and env variable master_image_version
 # Use to pass info about Jenkins version so it can be represented

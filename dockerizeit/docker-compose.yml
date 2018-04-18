@@ -19,7 +19,8 @@ services:
       - "443:443"
       - "50000:50000"
     volumes:
-      - $HOME/.cert:/var/jenkins_home/.cert
+      - $HOME/.certs:/var/jenkins_home/.certs
+      - $HOME/.secrets:/var/jenkins_home/.secrets
       - $HOME/.ssh:/var/jenkins_home/.ssh
       - $HOME/jenkins-backup/jobs:/var/jenkins_home/jobs
       - $HOME/jenkins-backup/userContent:/var/jenkins_home/userContent
