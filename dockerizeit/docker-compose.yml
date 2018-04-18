@@ -17,7 +17,7 @@ services:
         max-file: "3"
     ports:
       - "443:443"
-      - "50000:50000"
+      - "5000:5000"
     volumes:
       - $HOME/.certs:/var/jenkins_home/.certs
       - $HOME/.secrets:/var/jenkins_home/.secrets
