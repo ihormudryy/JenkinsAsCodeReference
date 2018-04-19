@@ -17,7 +17,7 @@ services:
         max-file: "3"
     ports:
       - "443:443"
-      - "50000:5000"
+      - "50000:50000"
     volumes:
       - $HOME/.certs:/var/jenkins_home/.certs
       - $HOME/.secrets:/var/jenkins_home/.secrets
@@ -29,7 +29,7 @@ services:
   registry:
     image: registry
     ports:
-      - 50000:5000
+      - 5000:5000
     volumes:
       - $HOME/jenkins-backup/registry:/var/lib/registry
       - /etc/localtime:/etc/localtime
@@ -40,7 +40,7 @@ services:
       - 8081:80
     environment:
       - ENV_DOCKER_REGISTRY_HOST=registry
-      - ENV_DOCKER_REGISTRY_PORT=50000
+      - ENV_DOCKER_REGISTRY_PORT=5000
       - ENV_MODE_BROWSE_ONLY=true
     volumes:
       - /etc/localtime:/etc/localtime

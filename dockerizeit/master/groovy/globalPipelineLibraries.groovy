@@ -14,8 +14,9 @@ properties.libraries.each() { key, value ->
 		println "--> Configure Pipeline shared groovy library: ${value.name}"
 		GitSCMSource gitSCM = new GitSCMSource(value.name,
 		                                       value.scm_path,
-                                                       value.credentialsId,
-                                                       null, null, false)
+                                               value.credentialsId,
+                                               null, null, false)
+		
 		LibraryConfiguration globalConfig = new LibraryConfiguration(value.name, new SCMSourceRetriever(gitSCM))
 		globalConfig.setDefaultVersion(value.version)
 		globalConfig.setImplicit(value.implicitly)
