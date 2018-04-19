@@ -12,11 +12,13 @@ import com.cloudbees.jenkins.plugins.sshcredentials.impl.*
 import hudson.plugins.sshslaves.*
 
 //Plugin plain credentials
-import org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl;
-import org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl.DescriptorImpl;
+import org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl
+import org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl.DescriptorImpl
+import hudson.util.Secret
 
 //PLlugin AWS credentials
-import com.cloudbees.jenkins.plugins.awscredentials.*
+import com.cloudbees.jenkins.plugins.awscredentials.AWSCredentialsImpl
+import com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentials
 
 // Read properties
 def home_dir = System.getenv("JENKINS_HOME")
@@ -63,7 +65,7 @@ properties.credentials.each {
       creds = new StringCredentialsImpl(CredentialsScope.GLOBAL,
                                         it.value.credentialsId,
                                         it.value.description,
-                                        new File(it.value.path).text.trim())
+                                        Secret.fromString(new File(it.value.path).text.trim()))
       credentials_store.addCredentials(global_domain, creds)
       break
     default:
