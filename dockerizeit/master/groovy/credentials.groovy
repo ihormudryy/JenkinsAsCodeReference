@@ -12,8 +12,8 @@ import com.cloudbees.jenkins.plugins.sshcredentials.impl.*
 import hudson.plugins.sshslaves.*
 
 //Plugin plain credentials
-import org.jenkinsci.plugins.plaincredentials.*
-import org.jenkinsci.plugins.plaincredentials.impl.*
+import org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl;
+import org.jenkinsci.plugins.plaincredentials.impl.StringCredentialsImpl.DescriptorImpl;
 
 //PLlugin AWS credentials
 import com.cloudbees.jenkins.plugins.awscredentials.*
