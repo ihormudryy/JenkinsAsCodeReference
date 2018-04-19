@@ -10,6 +10,7 @@ import com.cloudbees.plugins.credentials.domains.*
 import com.cloudbees.plugins.credentials.impl.*
 import com.cloudbees.jenkins.plugins.sshcredentials.impl.*
 import hudson.plugins.sshslaves.*
+import org.jenkinsci.plugins.plaincredentials.*
 
 // Read properties
 def home_dir = System.getenv("JENKINS_HOME")
@@ -39,6 +40,14 @@ properties.credentials.each {
                                                   it.value.credentialsId,
                                                   it.value.description,
                                                   it.value.userId,
+                                                  new File(it.value.path).text.trim())
+      credentials_store.addCredentials(global_domain, creds)
+      break
+    case "secret":
+      println "--> Create credentials for user ${it.value.userId} with secret ${it.value.path}"
+      creds = new StringCredentialsImpl(CredentialsScope.GLOBAL,
+                                                  it.value.credentialsId,
+                                                  it.value.description,
                                                   new File(it.value.path).text.trim())
       credentials_store.addCredentials(global_domain, creds)
       break
