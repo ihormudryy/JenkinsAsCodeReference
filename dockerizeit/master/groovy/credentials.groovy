@@ -10,8 +10,13 @@ import com.cloudbees.plugins.credentials.domains.*
 import com.cloudbees.plugins.credentials.impl.*
 import com.cloudbees.jenkins.plugins.sshcredentials.impl.*
 import hudson.plugins.sshslaves.*
+
+//Plugin plain credentials
 import org.jenkinsci.plugins.plaincredentials.*
 import org.jenkinsci.plugins.plaincredentials.impl.*
+
+//PLlugin AWS credentials
+import com.cloudbees.jenkins.plugins.awscredentials.*
 
 // Read properties
 def home_dir = System.getenv("JENKINS_HOME")
@@ -44,12 +49,21 @@ properties.credentials.each {
                                                   new File(it.value.path).text.trim())
       credentials_store.addCredentials(global_domain, creds)
       break
+    case "aws_credentials":
+      println "--> Create credentials for AWS user ${it.value.userId} with the AWS key from ${it.value.path}"
+      creds = new AWSCredentialsImpl(CredentialsScope.GLOBAL,
+                                      it.value.credentialsId,
+                                      new File(it.value.key_path).text.trim(),
+                                      new File(it.value.secret_path).text.trim(),
+                                      it.value.description)
+      credentials_store.addCredentials(global_domain, creds)
+      break
     case "secret":
-      println "--> Create credentials for user ${it.value.userId} with secret ${it.value.path}"
+      println "--> Create credentials for user ${it.value.credentialsId} with secret ${it.value.path}"
       creds = new StringCredentialsImpl(CredentialsScope.GLOBAL,
-                                                  it.value.credentialsId,
-                                                  it.value.description,
-                                                  new File(it.value.path).text.trim())
+                                        it.value.credentialsId,
+                                        it.value.description,
+                                        new File(it.value.path).text.trim())
       credentials_store.addCredentials(global_domain, creds)
       break
     default:
