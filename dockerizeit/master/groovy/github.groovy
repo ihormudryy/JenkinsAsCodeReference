@@ -25,6 +25,7 @@ properties.github.each() { configName, serverConfig ->
     }
 
     GitHubServerConfig server = new GitHubServerConfig(serverConfig.credentialsId)
+    server.setName(serverConfig.name)
     server.setManageHooks(serverConfig.manageHooks.toBoolean())
     if (serverConfig.useCustomUrl.toBoolean()) {
       server.setCustomApiUrl(serverConfig.useCustomUrl.toBoolean())
