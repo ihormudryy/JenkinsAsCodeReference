@@ -18,23 +18,13 @@ properties.seedjobs.each {
   if (job) { job.delete() }
   println "--> Create ${it.value.name} seed jod"
   def project = Jenkins.instance.createProject(WorkflowJob.class, it.value.name)
+
   project.setDefinition(new CpsFlowDefinition("""
 import javaposse.jobdsl.plugin.*
 
 node("${properties.global.variables.utility_slave}") {
     git branch: "${it.value.branch}", credentialsId: "${it.value.credentials}", url: "${it.value.repo}"
-    step([
-        \$class: 'ExecuteDslScripts',
-        targets: "${it.value.path}",
-        ignoreMissingFiles: true,
-        ignoreExisting: false,
-        removedJobAction: RemovedJobAction.DELETE,
-        removedViewAction: RemovedViewAction.DELETE,
-        lookupStrategy: LookupStrategy.JENKINS_ROOT,
-        additionalClasspath: "${it.value.classpath}"
-    ])
 }"""))
-  project.addTrigger(new TimerTrigger("@midnight"))
   it.value.parameters.each { key, value ->
     helpers.addBuildParameter(project, key, value)
   }
@@ -42,8 +32,3 @@ node("${properties.global.variables.utility_slave}") {
 }
 
 Jenkins.instance.reload()
-
-properties.seedjobs.each {
-  println "--> Schedule ${it.value.name} seed jod"
-  Jenkins.instance.getJob(it.value.name).scheduleBuild()
-}

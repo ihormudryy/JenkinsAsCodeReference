@@ -4,6 +4,8 @@ import hudson.model.*
 import jenkins.model.*
 import com.cloudbees.jenkins.*
 import org.jenkinsci.plugins.github.webhook.*
+import org.jenkinsci.plugins.github.GitHubPlugin
+import org.jenkinsci.plugins.github.config.GitHubServerConfig
 
 def home_dir = System.getenv("JENKINS_HOME")
 def properties = new ConfigSlurper().parse(new File("$home_dir/jenkins.properties").toURI().toURL())
@@ -21,20 +23,16 @@ properties.github.each() { configName, serverConfig ->
       println "ERROR: Can not configure Github Trigger no plugin installed"
       return
     }
-/*
-    def gerritServer = GitHubPushTrigger.newInstance(serverConfig.hostName)
-    def config = Config.newInstance()
-    config.setGerritHostName(serverConfig.hostName)
-    config.setGerritSshPort(serverConfig.sshPort)
-    config.setGerritFrontEndURL(serverConfig.frontendURL)
-    config.setGerritProxy(serverConfig.proxy)
-    config.setGerritUserName(serverConfig.userName)
-    config.setGerritAuthKeyFile(new File(serverConfig.sshKeyFile))
-    config.setGerritEMail(serverConfig.email)
-    gerritServer.setConfig(config)
 
-    PluginImpl.getInstance().addServer(gerritServer)
-    gerritServer.start()
-*/
+    GitHubServerConfig server = new GitHubServerConfig(serverConfig.credentialsId)
+    server.setManageHooks(serverConfig.manageHooks.toBoolean())
+    if (serverConfig.useCustomUrl.toBoolean()) {
+      server.setCustomApiUrl(serverConfig.useCustomUrl.toBoolean())
+      server.setApiUrl(serverConfig.api_url)
+    }
+    if (serverConfig.cacheSize > 0) {
+      server.setClientCacheSize(serverConfig.cacheSize)
+    }
+    GitHubPlugin.configuration().getConfigs().add(server)
   }
 }
