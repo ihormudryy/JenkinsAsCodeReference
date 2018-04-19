@@ -56,7 +56,7 @@ properties.credentials.each {
       creds = new AWSCredentialsImpl(CredentialsScope.GLOBAL,
                                       it.value.credentialsId,
                                       new File(it.value.key_path).text.trim(),
-                                      new File(it.value.secret_path).text.trim(),
+                                      Secret.fromString(new File(it.value.secret_path).text.trim()),
                                       it.value.description)
       credentials_store.addCredentials(global_domain, creds)
       break
