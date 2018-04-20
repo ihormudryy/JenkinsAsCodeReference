@@ -105,6 +105,7 @@ javadoc:1.4
 jdk-tool:1.1
 jenkins-design-language:1.5.0
 jira:2.5
+job-dsl:1.69
 job-import-plugin:2.1
 jobConfigHistory:2.18
 jobcopy-builder:1.4.0
@@ -206,3 +207,4 @@ workflow-scm-step:2.6
 workflow-step-api:2.14
 workflow-support:2.18
 ws-cleanup:0.34
+xml-job-to-job-dsl:0.1.7
