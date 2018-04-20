@@ -38,7 +38,7 @@ properties.seedjobs.each {
 
         projects.each { project->
             def gitTrigger = new GitHubPushTrigger()
-            def url = \"git@github.com:"${properties.global.git.user}"/\${project}\"
+            def url = \"git@github.com:"${it.value.username}"/\${project}\"
             def repo_list = GitSCM.createRepoList(url, '"${it.value.credentials}"')
             def projectProperty = new GithubProjectProperty(url)
             def scm = new GitSCM(repo_list, 
