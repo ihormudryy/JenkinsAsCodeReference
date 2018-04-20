@@ -38,7 +38,7 @@ properties.seedjobs.each {
 
         projects.each { project->
             def gitTrigger = new GitHubPushTrigger()
-            def url = \"git@github.com:"${properties.global.git.user}"/${project}\"
+            def url = \"git@github.com:"${properties.global.git.user}"/\${project}\"
             def repo_list = GitSCM.createRepoList(url, '"${it.value.credentials}"')
             def projectProperty = new GithubProjectProperty(url)
             def scm = new GitSCM(repo_list, 
@@ -52,7 +52,7 @@ properties.seedjobs.each {
             def flowDefinition = new org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition(scm, 
                                                                                 \"Jenkinsfile\")
 
-            def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(jenkins, \"GitHub_${project}\")
+            def job = new org.jenkinsci.plugins.workflow.job.WorkflowJob(jenkins, \"GitHub_\${project}\")
             job.setDefinition(flowDefinition)
             job.setTriggers([gitTrigger])
             job.addProperty(projectProperty)
