@@ -22,6 +22,9 @@ ENV master_image_version $master_image_version
 RUN chmod 744 /usr/share/jenkins/jenkins.war
 RUN wget -O /usr/share/jenkins/jenkins.war http://updates.jenkins-ci.org/latest/jenkins.war
 
+RUN apt-get update && apt-get -qy upgrade && \
+apt-get -qy install groovy
+
 # Install plugins
 COPY plugins.txt /usr/share/jenkins/plugins.txt
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
