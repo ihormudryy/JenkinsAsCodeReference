@@ -31,7 +31,8 @@ properties.seedjobs.each {
             'webgl',
             'structures',
             'JenkinsAsCodeReference',
-            'dsl_shared_libs'
+            'dsl_shared_libs',
+            'pipeline-examples'
         ]
 
         def jenkins = Jenkins.instance
