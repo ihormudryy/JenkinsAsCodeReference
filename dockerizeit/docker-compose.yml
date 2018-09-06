@@ -1,4 +1,4 @@
-version: "2"
+version: "3.7"
 
 services:
   master:
@@ -16,7 +16,7 @@ services:
         max-size: "200m"
         max-file: "3"
     ports:
-      - "443:443"
+      - "127.0.0.1:8888:8080"
       - "50000:50000"
     volumes:
       - $HOME/.certs:/var/jenkins_home/.certs
@@ -37,7 +37,7 @@ services:
   registry-web:
     image: konradkleine/docker-registry-frontend
     ports:
-      - 8081:80
+      - 8889:80
     environment:
       - ENV_DOCKER_REGISTRY_HOST=registry
       - ENV_DOCKER_REGISTRY_PORT=5000
