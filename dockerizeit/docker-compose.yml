@@ -16,7 +16,7 @@ services:
         max-size: "200m"
         max-file: "3"
     ports:
-      - "127.0.0.1:8888:8080"
+      - "8888:8080"
       - "50000:50000"
     volumes:
       - $HOME/.certs:/var/jenkins_home/.certs
