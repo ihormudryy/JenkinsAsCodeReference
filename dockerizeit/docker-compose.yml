@@ -19,11 +19,10 @@ services:
       - "8888:8080"
       - "50000:50000"
     volumes:
-      - $HOME/.certs:/var/jenkins_home/.certs
-      - $HOME/.secrets:/var/jenkins_home/.secrets
+      - $HOME/.secrets/jenkins:/var/jenkins_home/.secrets
       - $HOME/.ssh:/var/jenkins_home/.ssh
-      - $HOME/jenkins-backup/jobs:/var/jenkins_home/jobs
-      - $HOME/jenkins-backup/userContent:/var/jenkins_home/userContent
+      - $HOME/workspaces/jenkins-backup/jobs:/var/jenkins_home/jobs
+      - $HOME/workspaces/jenkins-backup/userContent:/var/jenkins_home/userContent
       - /etc/localtime:/etc/localtime
 
   registry:
@@ -34,7 +33,7 @@ services:
     volumes:
       - $HOME/jenkins-backup/registry:/var/lib/registry
       - /etc/localtime:/etc/localtime
-      -v $HOME/.secrets/auth:/auth
+      - $HOME/.secrets/auth:/auth
     environment:
       - ENV_REGISTRY_AUTH=htpasswd
       - ENV_REGISTRY_AUTH_HTPASSWD_REALM="Registry Realm"
@@ -49,7 +48,7 @@ services:
       - ENV_MODE_BROWSE_ONLY=true
       - ENV_REGISTRY_URL=https://docker-registry.mudryy.engineer
       - ENV_REGISTRY_TRUST_ANY_SSL=true
-      - ENV_REGISTRY_BASIC_AUTH="${DOCKER_BASIC_AUTH}"
+      - ENV_REGISTRY_BASIC_AUTH=${DOCKER_BASIC_AUTH}
       - ENV_REGISTRY_NAME=docker-registry.mudryy.engineer 
    volumes:
       - /etc/localtime:/etc/localtime
