@@ -50,5 +50,5 @@ services:
       - ENV_REGISTRY_TRUST_ANY_SSL=true
       - ENV_REGISTRY_BASIC_AUTH=${DOCKER_BASIC_AUTH}
       - ENV_REGISTRY_NAME=docker-registry.mudryy.engineer 
-   volumes:
+    volumes:
       - /etc/localtime:/etc/localtime
