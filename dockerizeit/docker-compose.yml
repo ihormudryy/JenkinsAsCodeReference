@@ -17,7 +17,6 @@ services:
         max-file: "3"
     ports:
       - "8888:8080"
-      - "50000:50000"
     volumes:
       - $HOME/.secrets/jenkins:/var/jenkins_home/.secrets
       - $HOME/.ssh:/var/jenkins_home/.ssh
@@ -31,7 +30,7 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - $HOME/jenkins-backup/registry:/var/lib/registry
+      - $HOME/workspaces/jenkins-backup/registry:/var/lib/registry
       - /etc/localtime:/etc/localtime
       - $HOME/.secrets/auth:/auth
     environment:
@@ -49,6 +48,7 @@ services:
       - ENV_REGISTRY_URL=https://docker-registry.mudryy.engineer
       - ENV_REGISTRY_TRUST_ANY_SSL=true
       - ENV_REGISTRY_BASIC_AUTH=${DOCKER_BASIC_AUTH}
-      - ENV_REGISTRY_NAME=docker-registry.mudryy.engineer 
+      - ENV_REGISTRY_NAME=docker-registry.mudryy.engineer
+      - ENV_DOCKER_REGISTRY_HOST=docker-registry.mudryy.engineer 
     volumes:
       - /etc/localtime:/etc/localtime
