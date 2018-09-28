@@ -21,7 +21,6 @@ apt-get -qy install groovy cron wget
 # Install plugins
 COPY plugins.txt /usr/share/jenkins/plugins.txt
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
-COPY scripts/cron.sh /tmp
 
 # Copy configuration scripts that will be executed by groovy
 COPY groovy/*.groovy /usr/share/jenkins/ref/init.groovy.d/
