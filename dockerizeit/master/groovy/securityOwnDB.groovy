@@ -8,7 +8,7 @@ def properties = new ConfigSlurper().parse(new File("$home_dir/security.properti
 if(properties.owndb.enabled) {
   println "--> Configure own database security realm"
 
-  HudsonPrivateSecurityRealm realm = new HudsonPrivateSecurityRealm(false)
+  HudsonPrivateSecurityRealm realm = new HudsonPrivateSecurityRealm(properties.owndb.allowSignup)
   properties.owndb.users.each() { key, value ->
     File passwordFile = new File(value.path)
     realm.createAccount(value.userId, passwordFile.text.trim())
