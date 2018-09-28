@@ -12,12 +12,12 @@ def getPasswordCredentials(String id) {
 }
 
 properties.slack.each() { configName, slackConfig ->
-	if(slackConfig.enabled) {
-		println '--> Configure Slack Notifier plugin'
-		def slack = Jenkins.instance.getDescriptorByType(jenkins.plugins.slack.SlackNotifier.DescriptorImpl)
-		slack.teamDomain = slackConfig.slackTeamDomain
-		slack.token = slackConfig.slackToken
-		slack.room = slackConfig.slackRoom
-		slack.save()
-	}
+    if(slackConfig.enabled) {
+        println '--> Configure Slack Notifier plugin'
+        def slack = Jenkins.instance.getDescriptorByType(jenkins.plugins.slack.SlackNotifier.DescriptorImpl)
+        slack.teamDomain = slackConfig.slackTeamDomain
+        slack.token = slackConfig.slackToken
+        slack.room = slackConfig.slackRoom
+        slack.save()
+    }
 }
