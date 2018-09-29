@@ -19,7 +19,7 @@ services:
       - "8888:8080"
     volumes:
       - $HOME/.secrets/jenkins:/var/jenkins_home/.secrets
-      - $HOME/.ssh:/var/jenkins_home/.ssh
+      - $HOME/.secrets/jenkins/.ssh:/var/jenkins_home/.ssh
       - $HOME/workspaces/jenkins-backup/jobs:/var/jenkins_home/jobs
       - $HOME/workspaces/jenkins-backup/userContent:/var/jenkins_home/userContent
       - /etc/localtime:/etc/localtime
