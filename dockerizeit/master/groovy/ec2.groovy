@@ -12,7 +12,7 @@ def properties = new ConfigSlurper().parse(new File("$home_dir/ec2.properties").
 def region = properties.ec2cloud.ec2.region
 def useInstanceProfileForCredentials = false
 def credentialsId = security.credentials.aws.credentialsId
-def privateKey = security.credentials.aws.privateKey
+def privateKey = new File(security.credentials.aws.path).text.trim()
 def instanceCapStr = properties.ec2cloud.ec2.instanceCapStr
 
 List<SlaveTemplate> amis = new ArrayList<SlaveTemplate>();

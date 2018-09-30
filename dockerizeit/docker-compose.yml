@@ -13,7 +13,7 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-size: "200m"
+        max-size: "1000m"
         max-file: "3"
     ports:
       - "8888:8080"
@@ -22,4 +22,4 @@ services:
       - $HOME/.secrets/jenkins/.ssh:/var/jenkins_home/.ssh
       - $HOME/workspaces/jenkins-backup/jobs:/var/jenkins_home/jobs
       - $HOME/workspaces/jenkins-backup/userContent:/var/jenkins_home/userContent
-      - /etc/localtime:/etc/localtime
+#      - /etc/localtime:/etc/localtime

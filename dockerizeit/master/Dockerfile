@@ -13,7 +13,7 @@ ARG master_image_version="local build"
 ENV master_image_version $master_image_version
 
 RUN chmod 744 /usr/share/jenkins/jenkins.war
-RUN wget -O /usr/share/jenkins/jenkins.war http://updates.jenkins-ci.org/latest/jenkins.war
+RUN wget -O /usr/share/jenkins/jenkins.war http://updates.jenkins-ci.org/latest/jenkins.war 2>/dev/null
 
 RUN apt-get update && apt-get -qy upgrade && \
 apt-get -qy install groovy cron wget

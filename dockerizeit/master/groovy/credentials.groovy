@@ -27,7 +27,7 @@ def properties = new ConfigSlurper().parse(new File("$home_dir/jenkins.propertie
 global_domain = Domain.global()
 credentials_store = Jenkins.instance.getExtensionList('com.cloudbees.plugins.credentials.SystemCredentialsProvider')[0].getStore()
 
-properties.credentials.each {
+properties.credentials.each() { it
   if (! new File(it.value.path).exists()) {
     throw new FileNotFoundException("${it.value.path} doesn't exists! Check credentials configuration")
   }
@@ -52,11 +52,11 @@ properties.credentials.each {
       credentials_store.addCredentials(global_domain, creds)
       break
     case "aws_credentials":
-      println "--> Create credentials for AWS user ${it.value.userId} with the AWS key from ${it.value.path}"
+      println "--> Create credentials for AWS user ${it.value.credentialsId} with the AWS key from ${it.value.key_path}"
       creds = new AWSCredentialsImpl(CredentialsScope.GLOBAL,
                                       it.value.credentialsId,
                                       new File(it.value.key_path).text.trim(),
-                                      Secret.fromString(new File(it.value.secret_path).text.trim()),
+                                      new File(it.value.secret_path).text.trim(),
                                       it.value.description)
       credentials_store.addCredentials(global_domain, creds)
       break
