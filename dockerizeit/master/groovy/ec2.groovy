@@ -18,20 +18,19 @@ def instanceCapStr = properties.ec2cloud.ec2.instanceCapStr
 List<SlaveTemplate> amis = new ArrayList<SlaveTemplate>();
 
 properties.ec2cloud.AMIs.each() { key, amiConfig ->
-    List<EC2Tag> m_tags = new ArrayList<EC2Tag>()
-    //amiConfig.tags.each() { tag ->
-    //    echo "$tag"
-        //m_tags.add(new EC2Tag(tag.type, tag.value))
-    //}
+    List<EC2Tag> tags = new ArrayList<EC2Tag>()
+    amiConfig.tags.each {
+        tags.add(new EC2Tag(it.value.type, it.value.value))
+    }
     SlaveTemplate ami = new SlaveTemplate(
         amiConfig.ami,
         amiConfig.zone,
         new SpotConfiguration(amiConfig.spotConfig),
         amiConfig.securityGroups,
         amiConfig.remoteFS,
-        InstanceType.T2Micro,
+        InstanceType["${amiConfig.type}"],
         amiConfig.ebsOptimized,
-        amiConfig.labelString.toString(),
+        amiConfig.labels,
         Node.Mode.NORMAL,
         amiConfig.description,
         amiConfig.initScript,
@@ -43,7 +42,7 @@ properties.ec2cloud.AMIs.each() { key, amiConfig ->
         amiConfig.jvmopts,
         amiConfig.stopOnTerminate,
         amiConfig.subnetId,
-        m_tags,
+        tags,
         amiConfig.idleTerminationMinutes,
         amiConfig.usePrivateDnsName,
         amiConfig.instanceCapStr,
