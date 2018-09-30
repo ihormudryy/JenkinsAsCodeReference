@@ -4,6 +4,7 @@ import org.jenkinsci.plugins.workflow.libs.*
 import hudson.plugins.ec2.*
 import hudson.slaves.Cloud
 import com.amazonaws.services.ec2.model.InstanceType
+import jenkins.model.Jenkins
 
 def home_dir = System.getenv("JENKINS_HOME")
 def security = new ConfigSlurper().parse(new File("$home_dir/jenkins.properties").toURI().toURL())
