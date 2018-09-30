@@ -10,6 +10,7 @@ def home_dir = System.getenv("JENKINS_HOME")
 def security = new ConfigSlurper().parse(new File("$home_dir/jenkins.properties").toURI().toURL())
 def properties = new ConfigSlurper().parse(new File("$home_dir/ec2.properties").toURI().toURL())
 
+def name = properties.ec2cloud.ec2.name
 def region = properties.ec2cloud.ec2.region
 def useInstanceProfileForCredentials = false
 def credentialsId = security.credentials.aws.credentialsId
@@ -61,7 +62,7 @@ properties.ec2cloud.AMIs.each() { key, amiConfig ->
 }
 
 AmazonEC2Cloud orig = new AmazonEC2Cloud(
-    'AmazonEC2', 
+    name, 
     useInstanceProfileForCredentials, 
     credentialsId, 
     region, 
@@ -70,4 +71,15 @@ AmazonEC2Cloud orig = new AmazonEC2Cloud(
     amis
 )
 
-Jenkins.instance.clouds.add(orig)
+if (Jenkins.instance.clouds.size() == 0) { 
+    Jenkins.instance.clouds.add(orig)
+} else {
+    def add_new_ec2 = true
+    for (i = 0; i < Jenkins.instance.clouds.size(); i++){
+        if (Jenkins.instance.clouds[i] instanceof hudson.plugins.ec2.AmazonEC2Cloud && 
+            Jenkins.instance.clouds[i].getCloudName() == orig.getCloudName())
+            add_new_ec2 = false
+    }
+    if (add_new_ec2)
+        Jenkins.instance.clouds.add(orig)
+}
